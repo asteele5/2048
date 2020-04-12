@@ -14,6 +14,24 @@ canvas.style.setProperty('--canvas-height', pxHeight + 'px');
 
 const width = 300;
 const height = 150;
+const boxWidth = width/rows;
+const boxHeight = height/rows;
+const col0 = 0;
+const col1 = boxWidth;
+const col2 = boxWidth*2;
+const col3 = boxWidth*3;
+const row0 = 0;
+const row1 = boxHeight;
+const row2 = boxHeight*2;
+const row3 = boxHeight*3;
+var direction = null;
+var tiles = new Array();
+tiles.push(new Tile(2));
+tiles.push(new Tile(8));
+tiles.push(new Tile(16));
+tiles[0].setX = boxWidth;
+tiles[0].setY = boxHeight*2;
+tiles[2].setY = boxHeight;
 
 function drawGrid() {
   var i;
@@ -22,8 +40,8 @@ function drawGrid() {
       ctx.beginPath();
       ctx.lineWidth = "1";
       ctx.strokeStyle = "gray";
-      ctx.moveTo(0.5, (height/rows)*i);
-      ctx.lineTo(width+0.5, (height/rows)*i);
+      ctx.moveTo(0, (height/rows-0.5)*i+0.5);
+      ctx.lineTo(width, (height/rows-0.5)*i+0.5);
       ctx.stroke();
   }
   // Draws columns
@@ -39,12 +57,26 @@ function drawGrid() {
 
 
 
-
+  window.addEventListener('keydown', ((e) =>{
+    if(e.key == 'ArrowUp'){
+        // Tile.move(tiles, 'UP');
+    }
+    else if(e.key == 'ArrowDown'){
+        // Tile.move(tiles, 'DOWN');
+    }
+    else if(e.key == 'ArrowLeft'){
+        // Tile.move(tiles, 'LEFT');
+    }
+    else if(e.key == 'ArrowRight'){
+        // Tile.move(tiles, 'RIGHT');
+    }
+  }))
 
 //Reocurring loop (runs every 150 ms)
 update = window.setInterval(() =>  {
+  ctx.clearRect(0, 0, width, height);
 drawGrid();
-// ctx.fillRect(50, 50, 50, 50);
-console.log(height/rows);
+
+Tile.drawTiles(tiles);
 
 }, 150);
