@@ -25,17 +25,18 @@ const row1 = boxHeight;
 const row2 = boxHeight*2;
 const row3 = boxHeight*3;
 var direction = null;
-var tiles = [
-  [new Tile(0, 0, 0), new Tile(0, boxWidth, 0), new Tile(2, boxWidth*2, 0), new Tile(0, boxWidth*3, 0)],
-  [new Tile(0, 0, boxHeight), new Tile(16, boxWidth, boxHeight), new Tile(8, boxWidth*2, boxHeight), new Tile(0, boxWidth*3, boxHeight)],
-  [new Tile(0, 0, boxHeight*2), new Tile(0, boxWidth, boxHeight*2), new Tile(4, boxWidth*2, boxHeight*2), new Tile(0, boxWidth*3, boxHeight*2)],
-  [new Tile(0, 0, boxHeight*3), new Tile(0, boxWidth, boxHeight*3), new Tile(0, boxWidth*2, boxHeight*3), new Tile(0, boxWidth*3, boxHeight*3)],
-];
-console.log(tiles[0][0]);
+// var tiles = [
+//   [new Tile(0, 0, 0), new Tile(0, boxWidth, 0), new Tile(0, boxWidth*2, 0), new Tile(0, boxWidth*3, 0)],
+//   [new Tile(0, 0, boxHeight), new Tile(0, boxWidth, boxHeight), new Tile(0, boxWidth*2, boxHeight), new Tile(0, boxWidth*3, boxHeight)],
+//   [new Tile(0, 0, boxHeight*2), new Tile(0, boxWidth, boxHeight*2), new Tile(0, boxWidth*2, boxHeight*2), new Tile(0, boxWidth*3, boxHeight*2)],
+//   [new Tile(0, 0, boxHeight*3), new Tile(0, boxWidth, boxHeight*3), new Tile(0, boxWidth*2, boxHeight*3), new Tile(0, boxWidth*3, boxHeight*3)],
+// ];
 // tiles[0][1].setX = tiles[0][1].getRealX(1);
 // tiles[1][0].setY = tiles[1][0].getRealY(1);
 // tiles[2][2].setX = tiles[2][2].getRealX(2);
 // tiles[2][2].setY = tiles[2][2].getRealY(2);
+var tiles = Tile.instaniateTiles();
+console.log(tiles);
 
 
 

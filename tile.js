@@ -25,10 +25,28 @@ class Tile{
     }
   }
 
+  static instaniateTiles(){
+    var tiles = [];
+    var i;
+    var j;
+    for(i = 0; i < rows; i++){
+      tiles.push(new Array(columns));
+    }
+    for(i = 0; i < tiles.length; i++){
+      for(j = 0; j < tiles[0].length; j++){
+        tiles[i][j] = new Tile(0, this.getRealX(j), this.getRealY(i));
+      }
+    }
+    console.log(tiles[1][2]);
+    console.log(tiles[1][2].getValue);
+    tiles[parseInt(Math.random()*tiles.length)][parseInt(Math.random()*tiles[0].length)].setValue = 2;
+    tiles[parseInt(Math.random()*tiles.length)][parseInt(Math.random()*tiles[0].length)].setValue = 2;
+    return tiles;
+  }
+
   static move(tiles, direction){
     var i;
     var j;
-
           var numi = i;
           var numj = j;
           //FIX
@@ -43,6 +61,10 @@ class Tile{
                       tiles[row-1][j].setValue = tiles[row][j].getValue;
                       tiles[row][j].setValue = 0;
                       row--;
+                    }
+                    else if(tiles[row-1][j].getValue == tiles[row][j].getValue){
+                      tiles[row-1][j].setValue = (tiles[row][j].getValue)*2;
+                      tiles[row][j].setValue = 0;
                     }
                     else break;
                   }
@@ -62,6 +84,10 @@ class Tile{
                       tiles[row][j].setValue = 0;
                       row++;
                     }
+                    else if(tiles[row+1][j].getValue == tiles[row][j].getValue){
+                      tiles[row+1][j].setValue = (tiles[row][j].getValue)*2;
+                      tiles[row][j].setValue = 0;
+                    }
                     else break;
                   }
                 }
@@ -77,6 +103,10 @@ class Tile{
                       tiles[i][col+1].setValue = tiles[i][col].getValue;
                       tiles[i][col].setValue = 0;
                       col++;
+                    }
+                    else if(tiles[i][col+1].getValue == tiles[i][col].getValue){
+                      tiles[i][col+1].setValue = (tiles[i][col].getValue)*2;
+                      tiles[i][col].setValue = 0;
                     }
                     else break;
                   }
@@ -97,6 +127,10 @@ class Tile{
                       tiles[i][col].setValue = 0;
                       col--;
                     }
+                    else if(tiles[i][col-1].getValue == tiles[i][col].getValue){
+                      tiles[i][col-1].setValue = (tiles[i][col].getValue)*2;
+                      tiles[i][col].setValue = 0;
+                    }
                     else break;
 
                   }
@@ -106,56 +140,31 @@ class Tile{
               }
             }
         }
+        this.generateRandomTile(tiles);
+  }
 
-
+  static generateRandomTile(tiles){
+    var emptyTileRows = [];
+    var emptyTileColumns = [];
+    var i;
+    var j;
+    for(i = 0; i < tiles.length; i++){
+      for(j = 0; j < tiles.length; j++){
+        if(tiles[i][j].getValue == 0){
+          emptyTileRows.push(i);
+          emptyTileColumns.push(j);
+        }
+      }
+    }
+    var row = emptyTileRows[parseInt(Math.random()*emptyTileRows.length)];
+    var col = emptyTileColumns[parseInt(Math.random()*emptyTileColumns.length)];
+    tiles[row][col].setValue = 2;
 
   }
 
-//FIX
-  // static moveRow(tilesInRow, direction){
-  //   var i;
-  //   var rowFill = {0:false, 75:false, 150:false, 225:false};
-  //
-  //
-  //   for(i = 0; i < tilesInRow.length; i++){
-  //     if(tilesInRow[i].getX == 0){
-  //       rowFill[col0] = true;
-  //     }
-  //     else if(tilesInRow[i].getX == boxWidth){
-  //       rowFill[col1] = true;
-  //     }
-  //     else if(tilesInRow[i].getX == boxWidth*2){
-  //       rowFill[col2] = true;
-  //     }
-  //     else if(tilesInRow[i].getX == boxWidth*3){
-  //       rowFill[col3] = true;
-  //     }
-  //   }
-  //   console.log(rowFill[0]);
-  //   for(i = 0; i < tilesInRow.length; i++){
-  //     var nextXLocation = tilesInRow[i].getX - boxWidth;
-  //
-  //     while(tilesInRow[i].getX > 0 && rowFill[nextXLocation] == false){
-  //       tilesInRow[i].setX = nextXLocation;
-  //       console.log('loop');
-  //     }
-  //   }
-  // }
 
-  //
-  // static getRow(tiles, row){
-  //   var i;
-  //   var tilesInRow = new Array();
-  //   for(i = 0; i < tiles.length; i++){
-  //     if(tiles[i].getY == boxHeight*row){
-  //       tilesInRow.push(tiles[i]);
-  //     }
-  //   }
-  //   return tilesInRow;
-  //
-  // }
 
-  getRealX(num){
+  static getRealX(num){
     if(num == 0){
       return 0;
     }
@@ -171,7 +180,7 @@ class Tile{
 
   }
 
-  getRealY(num){
+  static getRealY(num){
     if(num == 0){
       return 0;
     }
