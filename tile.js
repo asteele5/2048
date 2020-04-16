@@ -193,8 +193,11 @@ class Tile{
     }
     var row = emptyTileRows[parseInt(Math.random()*emptyTileRows.length)];
     var col = emptyTileColumns[parseInt(Math.random()*emptyTileColumns.length)];
-    tiles[row][col].setValue = 2;
-
+    while(tiles[row][col].getValue !== 0){
+      var row = emptyTileRows[parseInt(Math.random()*emptyTileRows.length)];
+      var col = emptyTileColumns[parseInt(Math.random()*emptyTileColumns.length)];
+    }
+      tiles[row][col].setValue = 2;
   }
 
 
