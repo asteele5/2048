@@ -6,8 +6,8 @@ const rows = 4;
 const columns = 4;
 
 //Pixel width and height of canvas(for CSS)
-const pxWidth = 600;
-const pxHeight = 600;
+const pxWidth = 500;
+const pxHeight = 500;
 //Sets width and height of canvas to pixel width and height variables
 canvas.style.setProperty('--canvas-width', pxWidth + 'px');
 canvas.style.setProperty('--canvas-height', pxHeight + 'px');
@@ -25,6 +25,10 @@ const row1 = boxHeight;
 const row2 = boxHeight*2;
 const row3 = boxHeight*3;
 var direction = null;
+var score = 0;
+console.log('box Width: '+boxWidth);
+console.log('box Height: '+boxHeight);
+
 // var tiles = [
 //   [new Tile(0, 0, 0), new Tile(0, boxWidth, 0), new Tile(0, boxWidth*2, 0), new Tile(0, boxWidth*3, 0)],
 //   [new Tile(0, 0, boxHeight), new Tile(0, boxWidth, boxHeight), new Tile(0, boxWidth*2, boxHeight), new Tile(0, boxWidth*3, boxHeight)],
@@ -46,18 +50,20 @@ function drawGrid() {
   for(i = 1; i < rows; i++){
       ctx.beginPath();
       ctx.lineWidth = "1";
-      ctx.strokeStyle = "gray";
-      ctx.moveTo(0, (height/rows-0.5)*i+0.5);
-      ctx.lineTo(width, (height/rows-0.5)*i+0.5);
+      ctx.strokeStyle = "black";
+      // ctx.moveTo(0, (boxHeight-0.5)*i+0.5);
+      // ctx.lineTo(width, (boxHeight-0.5)*i+0.5);
+      ctx.moveTo(0, (boxHeight)*i);
+      ctx.lineTo(width, (boxHeight)*i);
       ctx.stroke();
   }
   // Draws columns
   for(i = 1; i < columns; i++){
       ctx.beginPath();
       ctx.lineWidth = "1";
-      ctx.strokeStyle = "gray";
-      ctx.moveTo((width/rows)*i+0.5, 0);
-      ctx.lineTo((width/rows)*i+0.5, height);
+      ctx.strokeStyle = "black";
+      ctx.moveTo((boxWidth)*i+0.5, 0);
+      ctx.lineTo((boxWidth)*i+0.5, height);
       ctx.stroke();
   }
 }
@@ -66,16 +72,16 @@ function drawGrid() {
 
   window.addEventListener('keydown', ((e) =>{
     if(e.key == 'ArrowUp'){
-        Tile.move(tiles, 'UP');
+        Tile.move(tiles, 'UP', score);
     }
     else if(e.key == 'ArrowDown'){
-        Tile.move(tiles, 'DOWN');
+        Tile.move(tiles, 'DOWN', score);
     }
     else if(e.key == 'ArrowLeft'){
-        Tile.move(tiles, 'LEFT');
+        Tile.move(tiles, 'LEFT', score);
     }
     else if(e.key == 'ArrowRight'){
-        Tile.move(tiles, 'RIGHT');
+        Tile.move(tiles, 'RIGHT', score);
     }
   }))
 
@@ -85,5 +91,6 @@ update = window.setInterval(() =>  {
 drawGrid();
 
 Tile.drawTiles(tiles);
+document.getElementById("score").innerHTML = 'Score: '+score;
 
 }, 150);

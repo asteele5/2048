@@ -17,9 +17,30 @@ class Tile{
     for(i = 0; i < tiles.length; i++){
       for(j = 0; j < tiles[0].length; j++){
         if(tiles[i][j].getValue !== 0){
-          var tile = new Image();
-          tile.src = "C:/\\Users/\\mrswa/\\2048-Game/\\2048/\\Images/\\number"+tiles[i][j].getValue+".png";
-          ctx.drawImage(tile, tiles[i][j].getX+1, tiles[i][j].getY+0.5, boxWidth-.5, boxHeight-1.5);
+          ctx.beginPath();
+          if(tiles[i][j].getValue == 2) ctx.fillStyle = "#cfbcbc";
+          if(tiles[i][j].getValue == 4) ctx.fillStyle = "#397adb";
+          if(tiles[i][j].getValue == 8) ctx.fillStyle = "#db6f35";
+          if(tiles[i][j].getValue == 16) ctx.fillStyle = "#e6cd15";
+          if(tiles[i][j].getValue == 32) ctx.fillStyle = "#f00ec6";
+          if(tiles[i][j].getValue == 64) ctx.fillStyle = "#0ef0d2";
+          if(tiles[i][j].getValue == 128) ctx.fillStyle = "#0ef08a";
+          if(tiles[i][j].getValue == 256) ctx.fillStyle = "#160ef0";
+          if(tiles[i][j].getValue == 512) ctx.fillStyle = "#8f610b";
+          if(tiles[i][j].getValue == 1024) ctx.fillStyle = "#f79797";
+          if(tiles[i][j].getValue == 2048) ctx.fillStyle = "#f20707";
+          ctx.fillRect(tiles[i][j].getX+1, tiles[i][j].getY-0.5, boxWidth-0.5, boxHeight);
+
+          ctx.font = 19.5 + "px Arial";
+          ctx.fillStyle = "white";
+          ctx.textAlign = "center";
+          ctx.fillText(tiles[i][j].getValue.toString(), tiles[i][j].getX+34.5, tiles[i][j].getY+23.5);
+
+          // else{
+            // var tile = new Image();
+            // tile.src = "C:/\\Users/\\mrswa/\\2048-Game/\\2048/\\Images/\\number"+tiles[i][j].getValue+".png";
+            // ctx.drawImage(tile, tiles[i][j].getX+1, tiles[i][j].getY+0.5, boxWidth-.5, boxHeight-1.5);
+          // }
         }
       }
     }
@@ -41,12 +62,25 @@ class Tile{
     console.log(tiles[1][2].getValue);
     tiles[parseInt(Math.random()*tiles.length)][parseInt(Math.random()*tiles[0].length)].setValue = 2;
     tiles[parseInt(Math.random()*tiles.length)][parseInt(Math.random()*tiles[0].length)].setValue = 2;
+    // tiles[0][0].setValue = 2;
+    // tiles[0][1].setValue = 4;
+    // tiles[0][2].setValue = 8;
+    // tiles[0][3].setValue = 16;
+    // tiles[1][0].setValue = 32;
+    // tiles[1][1].setValue = 64;
+    // tiles[1][2].setValue = 128;
+    // tiles[1][3].setValue = 256;
+    // tiles[2][0].setValue = 512;
+    // tiles[2][1].setValue = 1024;
+    // tiles[2][2].setValue = 2048;
+
     return tiles;
   }
 
-  static move(tiles, direction){
+  static move(tiles, direction, score){
     var i;
     var j;
+
           var numi = i;
           var numj = j;
           //FIX
@@ -64,6 +98,7 @@ class Tile{
                     }
                     else if(tiles[row-1][j].getValue == tiles[row][j].getValue){
                       tiles[row-1][j].setValue = (tiles[row][j].getValue)*2;
+                      score += tiles[row-1][j].getValue;
                       tiles[row][j].setValue = 0;
                     }
                     else break;
