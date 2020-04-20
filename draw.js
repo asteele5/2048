@@ -68,29 +68,56 @@ function drawGrid() {
   }
 }
 
+  function endGame() {
+    canvas.style.opacity = "0.3";
+    window.setTimeout(lostMessage, 250);
+  }
+
+  function lostMessage(){
+    alert("You lost. Press \"Reset\" to play again.")
+  }
+
+  function resetGame(){
+
+    tiles = Tile.instaniateTiles();
+    score = 0;
+    canvas.style.opacity = "1";
+    update = window.setInterval(runGame, 150);
+  }
+
+
+
 
 
   window.addEventListener('keydown', ((e) =>{
     if(e.key == 'ArrowUp'){
-        Tile.move(tiles, 'UP', score);
+        Tile.move(tiles, 'UP');
+
     }
     else if(e.key == 'ArrowDown'){
-        Tile.move(tiles, 'DOWN', score);
+        Tile.move(tiles, 'DOWN');
     }
     else if(e.key == 'ArrowLeft'){
-        Tile.move(tiles, 'LEFT', score);
+        Tile.move(tiles, 'LEFT');
     }
     else if(e.key == 'ArrowRight'){
-        Tile.move(tiles, 'RIGHT', score);
+        Tile.move(tiles, 'RIGHT');
     }
   }))
 
+
+
+  function runGame(){
+    ctx.clearRect(0, 0, width, height);
+
+    drawGrid();
+    Tile.drawTiles(tiles);
+    if(Tile.checkFull(tiles)){
+      clearInterval(update);
+      endGame();
+    }
+    document.getElementById("score").innerHTML = 'Score: '+score;
+
+  }
 //Reocurring loop (runs every 150 ms)
-update = window.setInterval(() =>  {
-  ctx.clearRect(0, 0, width, height);
-drawGrid();
-
-Tile.drawTiles(tiles);
-document.getElementById("score").innerHTML = 'Score: '+score;
-
-}, 150);
+var update = window.setInterval(runGame, 150);

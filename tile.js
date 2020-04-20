@@ -11,6 +11,7 @@ class Tile{
   }
 
 
+
   static drawTiles(tiles){
     var i;
     var j;
@@ -77,28 +78,39 @@ class Tile{
     return tiles;
   }
 
-  static move(tiles, direction, score){
+  static move(tiles, direction){
     var i;
     var j;
+    // score+=5;
 
           var numi = i;
           var numj = j;
           //FIX
+
           if(direction == 'UP'){
             console.log('up')
             for(j = 0; j < tiles.length; j++){
               for(i = 0; i < tiles.length; i++){
+
                 if(tiles[i][j].getValue !== 0){
+
                   var row = i;
+
                   while(row > 0){
+
                     if(tiles[row-1][j].getValue == 0){
                       tiles[row-1][j].setValue = tiles[row][j].getValue;
                       tiles[row][j].setValue = 0;
                       row--;
+
                     }
                     else if(tiles[row-1][j].getValue == tiles[row][j].getValue){
                       tiles[row-1][j].setValue = (tiles[row][j].getValue)*2;
-                      score += tiles[row-1][j].getValue;
+
+                      // score = score+ 5;
+                      // console.log(tiles[row-1][j].getValue);
+                      // console.log("score: "+score);
+
                       tiles[row][j].setValue = 0;
                     }
                     else break;
@@ -198,6 +210,19 @@ class Tile{
       var col = emptyTileColumns[parseInt(Math.random()*emptyTileColumns.length)];
     }
       tiles[row][col].setValue = 2;
+  }
+
+  static checkFull(tiles){
+    var i;
+    var j;
+    for(i = 0; i < tiles.length; i++){
+      for(j = 0; j < tiles.length; j++){
+        if(tiles[i][j].getValue == 0){
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
 
