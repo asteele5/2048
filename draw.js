@@ -25,10 +25,7 @@ const row1 = boxHeight;
 const row2 = boxHeight*2;
 const row3 = boxHeight*3;
 var direction = null;
-var xDown = null;
-var yDown = null;
-document.addEventListener('touchstart', handleTouchStart, false);
-document.addEventListener('touchmove', handleTouchMove, false);
+
 // console.log('box Width: '+boxWidth);
 // console.log('box Height: '+boxHeight);
 
@@ -89,51 +86,58 @@ function drawGrid() {
   }
 
 
-  function getTouches(evt) {
-    return evt.touches ||             // browser API
-           evt.originalEvent.touches; // jQuery
-  }
+var touchstartX = 0;
+var touchstartY = 0;
+var touchendX = 0;
+var touchendY = 0;
 
-  function handleTouchStart(evt) {
-      const firstTouch = getTouches(evt)[0];
-      xDown = firstTouch.clientX;
-      yDown = firstTouch.clientY;
-  };
+const gestureZone = canvas;
 
-  function handleTouchMove(evt) {
-      if ( ! xDown || ! yDown ) {
-          return;
-      }
+gestureZone.addEventListener('touchstart', function(event) {
+    touchstartX = event.changedTouches[0].screenX;
+    touchstartY = event.changedTouches[0].screenY;
+}, false);
 
-      var xUp = evt.touches[0].clientX;
-      var yUp = evt.touches[0].clientY;
+gestureZone.addEventListener('touchend', function(event) {
+    touchendX = event.changedTouches[0].screenX;
+    touchendY = event.changedTouches[0].screenY;
+    handleGesture();
+}, false);
 
-      var xDiff = xDown - xUp;
-      var yDiff = yDown - yUp;
+function handleGesture() {
+    if (touchendX < touchstartX) {
+        console.log('Swiped left');
+        Tile.move(tiles, 'LEFT');
 
-      if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-          if ( xDiff > 0 ) {
-            Tile.move(tiles, 'LEFT');
-          } else {
-            Tile.move(tiles, 'RIGHT');
-          }
-      } else {
-          if ( yDiff > 0 ) {
-            Tile.move(tiles, 'UP');
-          } else {
-            Tile.move(tiles, 'DOWN');
-          }
-      }
-      /* reset values */
-      xDown = null;
-      yDown = null;
-  };
+    }
+
+    if (touchendX > touchstartX) {
+        console.log('Swiped right');
+        Tile.move(tiles, 'RIGHT');
+
+    }
+
+    if (touchendY < touchstartY) {
+        console.log('Swiped up');
+        Tile.move(tiles, 'UP');
+
+    }
+
+    if (touchendY > touchstartY) {
+        console.log('Swiped down');
+        Tile.move(tiles, 'DOWN');
+
+    }
+
+    if (touchendY === touchstartY) {
+        console.log('Tap');
+    }
+}
 
 
   window.addEventListener('keydown', ((e) =>{
     if(e.key == 'ArrowUp'){
         Tile.move(tiles, 'UP');
-
     }
     else if(e.key == 'ArrowDown'){
         Tile.move(tiles, 'DOWN');
