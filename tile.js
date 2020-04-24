@@ -7,8 +7,9 @@ class Tile{
     // this.image = new Image();
     // this.image.src = "C:/\\Users/\\mrswa/\\2048-Game/\\2048/\\Images/\\number"+this.value+".png";
 
-    console.log('hello');
   }
+
+  static score = 0;
 
 
 
@@ -59,10 +60,17 @@ class Tile{
         tiles[i][j] = new Tile(0, this.getRealX(j), this.getRealY(i));
       }
     }
-    console.log(tiles[1][2]);
-    console.log(tiles[1][2].getValue);
-    tiles[parseInt(Math.random()*tiles.length)][parseInt(Math.random()*tiles[0].length)].setValue = 2;
-    tiles[parseInt(Math.random()*tiles.length)][parseInt(Math.random()*tiles[0].length)].setValue = 2;
+    var row1 = parseInt(Math.random()*tiles.length);
+    var col1 = parseInt(Math.random()*tiles[0].length);
+    tiles[row1][col1].setValue = 2;
+    var row2 = parseInt(Math.random()*tiles.length);
+    var col2 = parseInt(Math.random()*tiles[0].length);
+    while(row1 == row2 && col1 == col2){
+      row2 = parseInt(Math.random()*tiles.length);
+      col2 = parseInt(Math.random()*tiles[0].length);
+    }
+    tiles[row2][col2].setValue = 2;
+
     // tiles[0][0].setValue = 2;
     // tiles[0][1].setValue = 4;
     // tiles[0][2].setValue = 8;
@@ -81,14 +89,12 @@ class Tile{
   static move(tiles, direction){
     var i;
     var j;
-    // score+=5;
-
+    // score++;
           var numi = i;
           var numj = j;
           //FIX
 
           if(direction == 'UP'){
-            console.log('up')
             for(j = 0; j < tiles.length; j++){
               for(i = 0; i < tiles.length; i++){
 
@@ -106,11 +112,7 @@ class Tile{
                     }
                     else if(tiles[row-1][j].getValue == tiles[row][j].getValue){
                       tiles[row-1][j].setValue = (tiles[row][j].getValue)*2;
-
-                      // score = score+ 5;
-                      // console.log(tiles[row-1][j].getValue);
-                      // console.log("score: "+score);
-
+                      this.score += tiles[row-1][j].getValue;
                       tiles[row][j].setValue = 0;
                     }
                     else break;
@@ -125,7 +127,6 @@ class Tile{
                 if(tiles[i][j].getValue !== 0){
                   var row = i;
                   while(row < tiles.length-1){
-                    console.log('run')
                     if(tiles[row+1][j].getValue == 0){
                       tiles[row+1][j].setValue = tiles[row][j].getValue;
                       tiles[row][j].setValue = 0;
@@ -133,6 +134,7 @@ class Tile{
                     }
                     else if(tiles[row+1][j].getValue == tiles[row][j].getValue){
                       tiles[row+1][j].setValue = (tiles[row][j].getValue)*2;
+                      this.score += tiles[row+1][j].getValue;
                       tiles[row][j].setValue = 0;
                     }
                     else break;
@@ -153,6 +155,7 @@ class Tile{
                     }
                     else if(tiles[i][col+1].getValue == tiles[i][col].getValue){
                       tiles[i][col+1].setValue = (tiles[i][col].getValue)*2;
+                      this.score += tiles[i][col+1].getValue;
                       tiles[i][col].setValue = 0;
                     }
                     else break;
@@ -176,6 +179,7 @@ class Tile{
                     }
                     else if(tiles[i][col-1].getValue == tiles[i][col].getValue){
                       tiles[i][col-1].setValue = (tiles[i][col].getValue)*2;
+                      this.score += tiles[i][col-1].getValue;
                       tiles[i][col].setValue = 0;
                     }
                     else break;
@@ -187,6 +191,7 @@ class Tile{
               }
             }
         }
+
         this.generateRandomTile(tiles);
   }
 
@@ -283,8 +288,8 @@ class Tile{
     this.value = value;
   }
 
-  // static get getTileImage(){
-  //   return this.image;
-  // }
+
+
+
 
 }

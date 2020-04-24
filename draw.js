@@ -25,9 +25,9 @@ const row1 = boxHeight;
 const row2 = boxHeight*2;
 const row3 = boxHeight*3;
 var direction = null;
-var score = 0;
-console.log('box Width: '+boxWidth);
-console.log('box Height: '+boxHeight);
+
+// console.log('box Width: '+boxWidth);
+// console.log('box Height: '+boxHeight);
 
 // var tiles = [
 //   [new Tile(0, 0, 0), new Tile(0, boxWidth, 0), new Tile(0, boxWidth*2, 0), new Tile(0, boxWidth*3, 0)],
@@ -40,7 +40,7 @@ console.log('box Height: '+boxHeight);
 // tiles[2][2].setX = tiles[2][2].getRealX(2);
 // tiles[2][2].setY = tiles[2][2].getRealY(2);
 var tiles = Tile.instaniateTiles();
-console.log(tiles);
+// console.log(tiles);
 
 
 
@@ -80,7 +80,7 @@ function drawGrid() {
   function resetGame(){
 
     tiles = Tile.instaniateTiles();
-    score = 0;
+    Tile.score = 0;
     canvas.style.opacity = "1";
     update = window.setInterval(runGame, 150);
   }
@@ -114,9 +114,12 @@ function drawGrid() {
     Tile.drawTiles(tiles);
     if(Tile.checkFull(tiles)){
       clearInterval(update);
+      console.log('end');
       endGame();
     }
-    document.getElementById("score").innerHTML = 'Score: '+score;
+
+    document.getElementById("score").innerHTML = 'Score: '+Tile.score;
+
 
   }
 //Reocurring loop (runs every 150 ms)
