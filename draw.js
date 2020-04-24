@@ -25,7 +25,10 @@ const row1 = boxHeight;
 const row2 = boxHeight*2;
 const row3 = boxHeight*3;
 var direction = null;
-
+var xDown = null;
+var yDown = null;
+document.addEventListener('touchstart', handleTouchStart, false);
+document.addEventListener('touchmove', handleTouchMove, false);
 // console.log('box Width: '+boxWidth);
 // console.log('box Height: '+boxHeight);
 
@@ -86,7 +89,45 @@ function drawGrid() {
   }
 
 
+  function getTouches(evt) {
+    return evt.touches ||             // browser API
+           evt.originalEvent.touches; // jQuery
+  }
 
+  function handleTouchStart(evt) {
+      const firstTouch = getTouches(evt)[0];
+      xDown = firstTouch.clientX;
+      yDown = firstTouch.clientY;
+  };
+
+  function handleTouchMove(evt) {
+      if ( ! xDown || ! yDown ) {
+          return;
+      }
+
+      var xUp = evt.touches[0].clientX;
+      var yUp = evt.touches[0].clientY;
+
+      var xDiff = xDown - xUp;
+      var yDiff = yDown - yUp;
+
+      if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+          if ( xDiff > 0 ) {
+            Tile.move(tiles, 'LEFT');
+          } else {
+            Tile.move(tiles, 'RIGHT');
+          }
+      } else {
+          if ( yDiff > 0 ) {
+            Tile.move(tiles, 'UP');
+          } else {
+            Tile.move(tiles, 'DOWN');
+          }
+      }
+      /* reset values */
+      xDown = null;
+      yDown = null;
+  };
 
 
   window.addEventListener('keydown', ((e) =>{
