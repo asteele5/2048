@@ -89,6 +89,7 @@ class Tile{
   static move(tiles, direction){
     var i;
     var j;
+    var move = false;
     // score++;
           var numi = i;
           var numj = j;
@@ -108,14 +109,17 @@ class Tile{
                       tiles[row-1][j].setValue = tiles[row][j].getValue;
                       tiles[row][j].setValue = 0;
                       row--;
-
+                      move = true;
                     }
                     else if(tiles[row-1][j].getValue == tiles[row][j].getValue){
                       tiles[row-1][j].setValue = (tiles[row][j].getValue)*2;
                       this.score += tiles[row-1][j].getValue;
                       tiles[row][j].setValue = 0;
+                      move = true;
                     }
-                    else break;
+                    else {
+                      break;
+                    }
                   }
                 }
             }
@@ -131,13 +135,17 @@ class Tile{
                       tiles[row+1][j].setValue = tiles[row][j].getValue;
                       tiles[row][j].setValue = 0;
                       row++;
+                      move = true;
                     }
                     else if(tiles[row+1][j].getValue == tiles[row][j].getValue){
                       tiles[row+1][j].setValue = (tiles[row][j].getValue)*2;
                       this.score += tiles[row+1][j].getValue;
                       tiles[row][j].setValue = 0;
+                      move = true;
                     }
-                    else break;
+                    else {
+                      break;
+                    }
                   }
                 }
             }
@@ -152,14 +160,17 @@ class Tile{
                       tiles[i][col+1].setValue = tiles[i][col].getValue;
                       tiles[i][col].setValue = 0;
                       col++;
+                      move = true;
                     }
                     else if(tiles[i][col+1].getValue == tiles[i][col].getValue){
                       tiles[i][col+1].setValue = (tiles[i][col].getValue)*2;
                       this.score += tiles[i][col+1].getValue;
                       tiles[i][col].setValue = 0;
+                      move = true;
                     }
-                    else break;
-                  }
+                    else {
+                      break;
+                    }                  }
                 }
               }
             }
@@ -176,14 +187,17 @@ class Tile{
                       tiles[i][col-1].setValue = tiles[i][col].getValue;
                       tiles[i][col].setValue = 0;
                       col--;
+                      move = true;
                     }
                     else if(tiles[i][col-1].getValue == tiles[i][col].getValue){
                       tiles[i][col-1].setValue = (tiles[i][col].getValue)*2;
                       this.score += tiles[i][col-1].getValue;
                       tiles[i][col].setValue = 0;
+                      move = true;
                     }
-                    else break;
-
+                    else {
+                      break;
+                    }
                   }
 
 
@@ -191,7 +205,8 @@ class Tile{
               }
             }
         }
-
+        console.log('move: '+move);
+        if(move)
         this.generateRandomTile(tiles);
   }
 
