@@ -53,8 +53,14 @@ function drawGrid() {
       ctx.strokeStyle = "black";
       // ctx.moveTo(0, (boxHeight-0.5)*i+0.5);
       // ctx.lineTo(width, (boxHeight-0.5)*i+0.5);
-      ctx.moveTo(0, (boxHeight)*i);
-      ctx.lineTo(width, (boxHeight)*i);
+      if(i == 2){
+        ctx.moveTo(0, (boxHeight)*i+.5);
+        ctx.lineTo(width, (boxHeight)*i+.5);
+      }
+      else{
+        ctx.moveTo(0, (boxHeight)*i);
+        ctx.lineTo(width, (boxHeight)*i);
+      }
       ctx.stroke();
   }
   // Draws columns
@@ -62,19 +68,15 @@ function drawGrid() {
       ctx.beginPath();
       ctx.lineWidth = "1";
       ctx.strokeStyle = "black";
-      ctx.moveTo((boxWidth)*i+0.5, 0);
-      ctx.lineTo((boxWidth)*i+0.5, height);
+      ctx.moveTo((boxWidth)*i, 0);
+      ctx.lineTo((boxWidth)*i, height);
       ctx.stroke();
   }
 }
 
   function endGame() {
     canvas.style.opacity = "0.3";
-    window.setTimeout(lostMessage, 250);
-  }
-
-  function lostMessage(){
-    alert("You lost. Press \"Reset\" to play again.")
+    window.setTimeout(function(){alert("You lost. Press \"Reset\" to play again.");}, 250);
   }
 
   function resetGame(){
@@ -158,7 +160,7 @@ function handleGesture() {
     drawGrid();
     Tile.drawTiles(tiles);
     if(Tile.checkFull(tiles)){
-      clearInterval(update);
+      window.clearInterval(update);
       console.log('end');
       endGame();
     }

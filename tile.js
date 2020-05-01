@@ -31,7 +31,7 @@ class Tile{
           if(tiles[i][j].getValue == 512) ctx.fillStyle = "#8f610b";
           if(tiles[i][j].getValue == 1024) ctx.fillStyle = "#f79797";
           if(tiles[i][j].getValue == 2048) ctx.fillStyle = "#f20707";
-          ctx.fillRect(tiles[i][j].getX+1, tiles[i][j].getY-0.5, boxWidth-0.5, boxHeight);
+          ctx.fillRect(tiles[i][j].getX+.25, tiles[i][j].getY, boxWidth-0.75, boxHeight);
 
           ctx.font = 19.5 + "px Arial";
           ctx.fillStyle = "white";

@@ -12,7 +12,6 @@
 #score{
   color: #000;
   font-size: 22px;
-  font-family: "Times New Roman", Times, serif;
   font-weight: 700;
   margin: 30px;
   margin-top: 0px;
@@ -20,16 +19,19 @@
 
 #button{
   color: black;
-  background-color: lightblue;
+  background-color: #FFF;
   font-size: 20px;
   padding: 10px;
   cursor: pointer;
+  border-color: black;
 }
 
 
 
 .wrapper{
   text-align: center;
+  font-family: "Trebuchet MS", Helvetica, sans-serif
+
 }
 
 
