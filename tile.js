@@ -4,8 +4,6 @@ class Tile{
     this.value = value;
     this.x = x;
     this.y = y;
-    // this.image = new Image();
-    // this.image.src = "C:/\\Users/\\mrswa/\\2048-Game/\\2048/\\Images/\\number"+this.value+".png";
 
   }
 
@@ -32,17 +30,13 @@ class Tile{
           if(tiles[i][j].getValue == 1024) ctx.fillStyle = "#f79797";
           if(tiles[i][j].getValue == 2048) ctx.fillStyle = "#f20707";
           ctx.fillRect(tiles[i][j].getX+.25, tiles[i][j].getY, boxWidth-0.75, boxHeight);
+          // font-family: "Trebuchet MS", Helvetica, sans-serif
 
-          ctx.font = 19.5 + "px Arial";
+          ctx.font = 23 + "px Arial";
           ctx.fillStyle = "white";
           ctx.textAlign = "center";
-          ctx.fillText(tiles[i][j].getValue.toString(), tiles[i][j].getX+34.5, tiles[i][j].getY+23.5);
+          ctx.fillText(tiles[i][j].getValue.toString(), tiles[i][j].getX+34.5, tiles[i][j].getY+25);
 
-          // else{
-            // var tile = new Image();
-            // tile.src = "C:/\\Users/\\mrswa/\\2048-Game/\\2048/\\Images/\\number"+tiles[i][j].getValue+".png";
-            // ctx.drawImage(tile, tiles[i][j].getX+1, tiles[i][j].getY+0.5, boxWidth-.5, boxHeight-1.5);
-          // }
         }
       }
     }
@@ -70,19 +64,6 @@ class Tile{
       col2 = parseInt(Math.random()*tiles[0].length);
     }
     tiles[row2][col2].setValue = 2;
-
-    // tiles[0][0].setValue = 2;
-    // tiles[0][1].setValue = 4;
-    // tiles[0][2].setValue = 8;
-    // tiles[0][3].setValue = 16;
-    // tiles[1][0].setValue = 32;
-    // tiles[1][1].setValue = 64;
-    // tiles[1][2].setValue = 128;
-    // tiles[1][3].setValue = 256;
-    // tiles[2][0].setValue = 512;
-    // tiles[2][1].setValue = 1024;
-    // tiles[2][2].setValue = 2048;
-
     return tiles;
   }
 
@@ -90,11 +71,8 @@ class Tile{
     var i;
     var j;
     var move = false;
-    // score++;
           var numi = i;
           var numj = j;
-          //FIX
-
           if(direction == 'UP'){
             for(j = 0; j < tiles.length; j++){
               for(i = 0; i < tiles.length; i++){
@@ -105,12 +83,14 @@ class Tile{
 
                   while(row > 0){
 
+                    //Checks if tile can move up
                     if(tiles[row-1][j].getValue == 0){
                       tiles[row-1][j].setValue = tiles[row][j].getValue;
                       tiles[row][j].setValue = 0;
                       row--;
                       move = true;
                     }
+                    //Checks if tiles are matching
                     else if(tiles[row-1][j].getValue == tiles[row][j].getValue){
                       tiles[row-1][j].setValue = (tiles[row][j].getValue)*2;
                       this.score += tiles[row-1][j].getValue;
@@ -131,12 +111,14 @@ class Tile{
                 if(tiles[i][j].getValue !== 0){
                   var row = i;
                   while(row < tiles.length-1){
+                    //Checks if tile can move down
                     if(tiles[row+1][j].getValue == 0){
                       tiles[row+1][j].setValue = tiles[row][j].getValue;
                       tiles[row][j].setValue = 0;
                       row++;
                       move = true;
                     }
+                    //Checks if tiles are matching
                     else if(tiles[row+1][j].getValue == tiles[row][j].getValue){
                       tiles[row+1][j].setValue = (tiles[row][j].getValue)*2;
                       this.score += tiles[row+1][j].getValue;
@@ -156,12 +138,14 @@ class Tile{
                 if(tiles[i][j].getValue !== 0){
                   var col = j;
                   while(col < tiles.length-1){
+                    //Checks if tile can move down
                     if(tiles[i][col+1].getValue == 0){
                       tiles[i][col+1].setValue = tiles[i][col].getValue;
                       tiles[i][col].setValue = 0;
                       col++;
                       move = true;
                     }
+                    //Checks if tiles are matching
                     else if(tiles[i][col+1].getValue == tiles[i][col].getValue){
                       tiles[i][col+1].setValue = (tiles[i][col].getValue)*2;
                       this.score += tiles[i][col+1].getValue;
@@ -182,13 +166,14 @@ class Tile{
 
                   var col = j;
                   while(col > 0){
-
+                    //Checks if tile can move down
                     if(tiles[i][col-1].getValue == 0){
                       tiles[i][col-1].setValue = tiles[i][col].getValue;
                       tiles[i][col].setValue = 0;
                       col--;
                       move = true;
                     }
+                    //Checks if tiles are matching
                     else if(tiles[i][col-1].getValue == tiles[i][col].getValue){
                       tiles[i][col-1].setValue = (tiles[i][col].getValue)*2;
                       this.score += tiles[i][col-1].getValue;
@@ -205,10 +190,10 @@ class Tile{
               }
             }
         }
-        console.log('move: '+move);
         if(move)
         this.generateRandomTile(tiles);
   }
+
 
   static generateRandomTile(tiles){
     var emptyTileRows = [];
